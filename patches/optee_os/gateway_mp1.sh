@@ -1,0 +1,33 @@
+#!/bin/bash
+Path=../../build/optee_os
+Line="
+&pinctrl {
+	usart1_pins_b: usart1-1 {
+		pins1 {
+			pinmux = <STM32_PINMUX('A', 9, AF7)>; /* USART1_TX */
+			bias-disable;
+			drive-push-pull;
+			slew-rate = <0>;
+		};
+		pins2 {
+			pinmux = <STM32_PINMUX('D', 14, AF7)>; /* USART1_RX */
+			bias-pull-up;
+		};
+	};
+};
+"
+
+cp -R gateway_mp1/* $Path
+echo -e "$Line"  >> $Path/core/arch/arm/dts/stm32mp13-pinctrl.dtsi
+
+echo "Add the following lines to: build/optee_os/core/arch/arm/plat-stm32mp1/conf.mk"
+echo 'Conf.mk:
+		flavor_dts_file-133D_GATEWAY = stm32mp133d-gateway.dts
+		
+		flavorlist-MP13 = $(flavor_dts_file-135F_DK) \
+		$(flavor_dts_file-133D_GATEWAY)
+		'
+		
+echo "Waiting for Keypress"
+gnome-terminal -- nano $Path/core/arch/arm/plat-stm32mp1/conf.mk
+read -n 1 

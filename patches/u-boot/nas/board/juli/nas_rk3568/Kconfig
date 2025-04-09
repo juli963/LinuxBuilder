@@ -1,0 +1,15 @@
+if TARGET_JULI_NAS_RK3568
+
+config SYS_BOARD
+	default "nas_rk3568"
+
+config SYS_VENDOR
+	default "juli"
+
+config SYS_CONFIG_NAME
+	default "nas_rk3568"
+
+config BOARD_SPECIFIC_OPTIONS # dummy
+	def_bool y
+
+endif

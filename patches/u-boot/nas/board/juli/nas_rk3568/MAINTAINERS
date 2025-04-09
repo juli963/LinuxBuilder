@@ -1,0 +1,7 @@
+NAS-RK3568
+M:	Julian S 
+S:	Maintained
+F:	arch/arm/dts/nas-rk3568.dts
+F:	board/juli/nas-rk3568
+F:	include/configs/juli_nas-rk3568.h
+F:	configs/nas-rk3568_defconfig
