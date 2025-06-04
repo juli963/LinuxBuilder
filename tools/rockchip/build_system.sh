@@ -13,11 +13,16 @@ make ARCH=arm CROSS_COMPILE=aarch64-linux-gnu- -j$BUILDCORES
 cp u-boot-rockchip.bin ../output/$sBoard/u-boot-$VEN.bin
 
 # Create Linux Image and Devicetree
-cd ../linux
-make ARCH=$linuxARCH CROSS_COMPILE=aarch64-linux-gnu- ${sBoard}_linux_defconfig
-(($? != 0)) && { printf '%s\n' "Writing Linux Config Failed"; exit 1; }
-make ARCH=$linuxARCH CROSS_COMPILE=aarch64-linux-gnu- -j$BUILDCORES
-(($? != 0)) && { printf '%s\n' "Compiling Linux failed"; exit 1; }
+if [ "$create_debpkg" = true ]; then 
+	cd ..
+	docker run --platform linux/$linuxARCH -v $PWD:/media/LinuxBuilder linux_builder:$linuxARCH /bin/sh -c 'cd /media/LinuxBuilder/linux && make ARCH='"$linuxARCH"' '"${sBoard}"'_linux_defconfig && make ARCH='"$linuxARCH"' -j'"${BUILDCORES}"' bindeb-pkg'
+else
+	cd ../linux
+	make ARCH=$linuxARCH CROSS_COMPILE=aarch64-linux-gnu- ${sBoard}_linux_defconfig
+	(($? != 0)) && { printf '%s\n' "Writing Linux Config Failed"; exit 1; }
+	make ARCH=$linuxARCH CROSS_COMPILE=aarch64-linux-gnu- -j$BUILDCORES
+	(($? != 0)) && { printf '%s\n' "Compiling Linux failed"; exit 1; }
+fi;
 
 cp arch/arm64/boot/Image ../output/$sBoard/Image_linux
 cp arch/arm64/boot/dts/rockchip/$DT.dtb ../output/$sBoard/$DT.dtb

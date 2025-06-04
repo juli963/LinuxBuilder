@@ -2,6 +2,7 @@
 
 #export Rootfs=$PWD/../distro/debian_arm64.img
 export BUILDCORES=24
+export create_debpkg=true
 
 ## For Rockchip Platforms define DDRBinary (TPL) and BL31
 ROCKCHIP_DDR_FNAME=nas_rk3568_lpddr4_1560MHz_v1.23
@@ -20,10 +21,14 @@ ROCKHIP_DDR_BIN_PATH=${PWD}/../build/rkbin/bin/rk35/
 export ROCKCHIP_TPL=${ROCKHIP_DDR_BIN_PATH}${ROCKCHIP_DDR_FNAME}.bin
 export BL31=${ROCKHIP_DDR_BIN_PATH}rk3568_bl31_v1.44.elf
 
+## Create and Setup Docker Image
+source ../tools/docker/setup.sh
+docker_setup
+
 cd ../tools/$VEN/
 ./build_system.sh
 
-## Create extlinux
+## Create extlinux file
 Line="
 label nas-kernel
     kernel /Image

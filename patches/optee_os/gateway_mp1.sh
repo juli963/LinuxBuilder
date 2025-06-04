@@ -22,10 +22,10 @@ echo -e "$Line"  >> $Path/core/arch/arm/dts/stm32mp13-pinctrl.dtsi
 
 echo "Add the following lines to: build/optee_os/core/arch/arm/plat-stm32mp1/conf.mk"
 echo 'Conf.mk:
-		flavor_dts_file-133D_GATEWAY = stm32mp133d-gateway.dts
+		flavor_dts_file-gateway_mp1 = stm32mp1_gateway_stm32mp13.dts
 		
 		flavorlist-MP13 = $(flavor_dts_file-135F_DK) \
-		$(flavor_dts_file-133D_GATEWAY)
+		$(flavor_dts_file-gateway_stm32mp13)
 		'
 		
 echo "Waiting for Keypress"

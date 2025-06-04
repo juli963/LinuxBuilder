@@ -15,7 +15,7 @@ srockchip+=" rkbin"
 
 sstm32mp1="linux"
 sstm32mp1+=" u-boot"
-sstm32mp1+=" atf"
+sstm32mp1+=" arm-trusted-firmware"
 sstm32mp1+=" optee_os"
 
 echo "Patching $VEN"

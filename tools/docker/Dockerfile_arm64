@@ -1,0 +1,15 @@
+FROM --platform=linux/arm64 debian:bookworm-slim
+
+RUN set -ex \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+               build-essential \
+               bison \
+               bc \
+               python3 \
+               libssl-dev \
+               libelf-dev \
+               kmod \
+               debhelper-compat \
+               rsync \
+               flex

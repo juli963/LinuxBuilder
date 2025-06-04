@@ -1,5 +1,5 @@
 #!/bin/bash
-Path=../../build/atf
+Path=../../build/arm-trusted-firmware
 Line="
 &pinctrl {
 	/omit-if-no-ref/
