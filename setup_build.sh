@@ -1,7 +1,7 @@
 #!/bin/bash
 
-VEN=Rockchip
-#VEN=STM32MP1
+#VEN=Rockchip
+VEN=STM32MP1
 
 ## Normalize ARCH Variable
 export VEN=`echo ${VEN} | tr '[:upper:]' '[:lower:]'`
@@ -18,10 +18,10 @@ if [ -e ".vendor" ]; then
  		cloneReps=false
  	else
  		# Remove everything except output directory
- 		find . -maxdepth 1 ! -name output ! -path . -exec rm -rf {} \;
+ 		sudo find . -maxdepth 1 ! -name output ! -path . -exec rm -rf {} \;
  	fi;
 else
-	find . -maxdepth 1 ! -name output ! -path . -exec rm -rf {} \;
+	sudo find . -maxdepth 1 ! -name output ! -path . -exec rm -rf {} \;
 fi;
 
 ## ARCH = STM32MP1
@@ -32,7 +32,7 @@ if [ "$VEN" = "stm32mp1" ]; then
 		git clone -b 4.5.0 https://github.com/OP-TEE/optee_os/
 		git clone -b v2.12.0 https://github.com/ARM-software/arm-trusted-firmware
 		git clone -b v2025.01 https://source.denx.de/u-boot/u-boot
-		#git clone -b v6.14 https://github.com/torvalds/linux
+		git clone -b v6.14 https://github.com/torvalds/linux
 	fi;
 	cd ..
 	./patch.sh
@@ -58,6 +58,6 @@ if [ "$VEN" = "rockchip" ]; then
 fi;
 
 
-echo "Sourcesystem $VEN is NOT a valid Sourecesystem" 
+echo "Sourcesystem $VEN is NOT a valid Sourcesystem" 
 
 
